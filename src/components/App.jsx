@@ -1,7 +1,7 @@
 import React from 'react';
 import { AddContact } from './addContactForm/AddContact';
 import { ContactList } from './addContactList/ContactList';
-import css from './app.module.css'
+import css from './app.module.css';
 import { FilterContact } from './filterContacts/FilterContact';
 import { nanoid } from 'nanoid';
 export class App extends React.Component {
@@ -14,42 +14,44 @@ export class App extends React.Component {
     ],
     filter: '',
   };
-  onInputChange=(event) =>{
+  onInputChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
-  onSubmit=(event) =>{
+  };
+  onSubmit = event => {
     event.preventDefault();
     const { contacts } = this.state;
     const name = event.target.name.value.trim();
     const number = event.target.number.value.trim();
     this.setState({ contacts: [...contacts, { name, number, id: nanoid() }] });
-  }
-  onFilterContact=()=>{
-    const {filter,contacts}=this.state;
-    return contacts.filter(({name})=>{
-      return name.toLowerCase().includes(filter.toLowerCase())
-    })
-  }
-  onDelete=(id)=>{
+  };
+  onFilterContact = () => {
+    const { filter, contacts } = this.state;
+    return contacts.filter(({ name }) => {
+      return name.toLowerCase().includes(filter.toLowerCase());
+    });
+  };
+  onDelete = id => {
     this.setState({
-      contacts:this.state.contacts.filter((contact)=>contact.id!==id)
-    })
-
-  }
+      contacts: this.state.contacts.filter(contact => contact.id !== id),
+    });
+  };
   render() {
-    const {filter}=this.state
-    const filtered=this.onFilterContact();
+    const { filter } = this.state;
+    const filtered = this.onFilterContact();
 
     return (
       <div className={css.container}>
-      <h1>PhoneBook:</h1>
-      <AddContact onHandleSubmit={this.onSubmit}></AddContact>
-      <h2>Contacts</h2>
-      <FilterContact value={filter} onFilterChange={this.onInputChange}></FilterContact>
-      <ContactList contacts={filtered} onDelete={this.onDelete}></ContactList>
+        <h1>PhoneBook:</h1>
+        <AddContact onHandleSubmit={this.onSubmit}></AddContact>
+        <h2>Contacts</h2>
+        <FilterContact
+          value={filter}
+          onFilterChange={this.onInputChange}
+        ></FilterContact>
+        <ContactList contacts={filtered} onDelete={this.onDelete}></ContactList>
       </div>
-    )
+    );
   }
 }

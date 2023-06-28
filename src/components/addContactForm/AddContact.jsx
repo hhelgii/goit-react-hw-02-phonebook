@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import css from './addCotact.module.css'
+import css from './addCotact.module.css';
 export class AddContact extends React.Component {
   state = {
     name: '',
@@ -17,13 +17,13 @@ export class AddContact extends React.Component {
     });
   };
 
- 
   render() {
     const { name, number } = this.state;
     const { onHandleSubmit } = this.props;
 
     return (
-      <form className={css.contactForm}
+      <form
+        className={css.contactForm}
         onSubmit={event => {
           onHandleSubmit(event);
           this.setState({
